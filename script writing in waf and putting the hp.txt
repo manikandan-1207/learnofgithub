@@ -1,0 +1,46 @@
+writing the script in waf 
+
+ssh cmswaf-kn-p1, p2, p3, p4
+
+# Accout-settings holding page
+RewriteCond "%{ENV:FROM_VMCORP}" !=1
+RewriteCond %{DOCUMENT_ROOT}/holding/accountsettings-maintenance.enable -f
+RewriteRule ^my-virgin-media/account-settings /holding/holding-page.html [PT,E=HOLDING:1,L]
+
+
+sudo -u modsec -i
+cd /app/waf/conf.d
+ls -lrt 
+vi maintenance-targed.include
+
+press - i is a insert mode 
+paste the script
+enter the esc
+:wq!
+
+grace full restart
+
+sudo service modsec-httpd status -- to check the status of 
+
+sudo service modsec-httpd graceful -- to restart the server.
+
+
+to put the holding pages 
+
+ssh cmswaf-kn-p1, p2, p3, p4
+
+sudo -u modsec -i
+
+cd /app/waf/www/holding
+
+touch accountsettings-maintenance.enable
+touch my-virgin-media-register-maintenance.enable
+
+ 
+
+rm my-virgin-media-register-maintenance.enable
+rm accountsettings-maintenance.enable
+
+
+
+After removed HP we need to check the post checks with grant lee and need to check the registration dashboard is the registration is happening or not.
